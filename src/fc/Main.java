@@ -13,24 +13,13 @@ public class Main {
             }
         }
 
-        for (int i = 0; i < n; i++){
-            for (int j = 0; j < n; j++){
-                System.out.print(test[i][j] + " ");
-            }
-            System.out.print("\n");
-        }
-        System.out.println();
+        Masque masque = new Masque(test);
+        System.out.println(masque);
 
-        double[][] map = PointInteret.getMap(test);
-        for (int i = 0; i < n; i++){
-            for (int j = 0; j < n; j++){
-                System.out.print(map[i][j] + " ");
-            }
-            System.out.print("\n");
-        }
-        System.out.println();
+        Map map = new Map(masque);
+        System.out.println(map);
 
-        ArrayList<int[]> points = PointInteret.getPointsInterets(map);
+        ArrayList<int[]> points = map.getPointsInterets();
         for (int[] point : points){
             System.out.println(point[0] + " " + point[1]);
         }
