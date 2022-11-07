@@ -1,9 +1,7 @@
 package fc;
 
-import java.util.Arrays;
-
 public class Masque {
-    private int[][] masque;
+    private final int[][] masque;
 
     Masque(int[][] masque){
         this.masque = masque;
