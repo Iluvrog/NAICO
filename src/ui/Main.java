@@ -13,6 +13,17 @@ public class Main extends JFrame {
     Main(){
         super();
 
+        test1();
+
+        //Les détails de création de ma fenêtre
+        setLocation(1000, 250);
+        setSize(400, 250);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setVisible(true);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
+    private void test1(){
         setLayout(new GridLayout(2, 2));
 
         Masque masque = new Masque("./data/picture/A.png");
@@ -27,13 +38,6 @@ public class Main extends JFrame {
         add(new Image(masque.toBufferedImage()));
         add(new Image(map.toBufferedImage()));
         add(new Image( map.toBufferedImagePointsInteret()));
-
-        //Les détails de création de ma fenêtre
-        setLocation(1000, 250);
-        setSize(400, 250);
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
-        setVisible(true);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     public static void main(String[] args){
