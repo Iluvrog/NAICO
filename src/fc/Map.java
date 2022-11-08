@@ -1,16 +1,18 @@
 package fc;
 
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class Map {
 
-    private final int VOISINS = 2;
+    private final int VOISINS = 5;
     private final int SIGMA = 1;
 
     private final Masque masque;
     private final double[][] map;
 
-    Map(Masque masque){
+    public Map(Masque masque){
         this.masque = masque;
 
         int hauteur = masque.getHauteur();
@@ -57,7 +59,7 @@ public class Map {
         boolean pointInteret = true;
         for (int i2 = i-1; i2 <= i+1; i2++){
             for (int j2 = j-1; j2 <= j+1; j2++){
-                pointInteret = pointInteret && isSup(i, j, i2, j2, map);
+                if (i2 != i || j2 != j) pointInteret = pointInteret && isSup(i, j, i2, j2, map);
             }
         }
         return pointInteret;
@@ -65,7 +67,7 @@ public class Map {
 
     private boolean isSup(int i1, int j1, int i2, int j2, double[][] map){
         if (i2<0 || j2<0 || i2 >= map.length || j2 >= map[0].length) return true;
-        return map[i1][j1]>=map[i2][j2];
+        return map[i1][j1]>map[i2][j2];
     }
 
     @Override
@@ -80,5 +82,50 @@ public class Map {
         }
 
         return string.toString();
+    }
+
+    public BufferedImage toBufferedImage(){
+        int hauteur = masque.getHauteur();
+        int largeur = masque.getLargeur();
+
+        BufferedImage image = new BufferedImage(hauteur, largeur, BufferedImage.TYPE_INT_ARGB);
+
+        double max = 0;
+        for (int i = 0; i < hauteur; i++){
+            for (int j = 0; j < largeur; j++){
+                if (map[i][j] > max) max = map[i][j];
+            }
+        }
+
+        for (int i = 0; i < hauteur; i++){
+            for (int j = 0; j < largeur; j++){
+                image.setRGB(i, j, new Color((int) (255*(map[i][j]/max)), 0, (int) (255*(1. - map[i][j]/max))).getRGB());
+            }
+        }
+
+        return image;
+    }
+
+    public BufferedImage toBufferedImagePointsInteret(){
+        BufferedImage image = toBufferedImage();
+
+        int hauteur = masque.getHauteur();
+        int largeur = masque.getLargeur();
+
+        for (int i = 0; i < hauteur; i++){
+            for (int j = 0; j < largeur; j++){
+                if (isPointInteret(i, j)) image.setRGB(i, j, Color.GREEN.getRGB());
+            }
+        }
+
+        return image;
+    }
+
+    public boolean isPointInteret(int x, int y){
+        ArrayList<int[]> points = getPointsInterets();
+        for (int[] point : points){
+            if (point[0] == x && point[1] == y) return true;
+        }
+        return false;
     }
 }
