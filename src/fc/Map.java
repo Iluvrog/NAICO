@@ -6,8 +6,9 @@ import java.util.ArrayList;
 
 public class Map {
 
-    private final int VOISINS = 5;
-    private final int SIGMA = 1;
+    private static final int VOISINS = 5;
+    private static final int SIGMA = 1;
+    private static final int DISTANCE_MAX_LOCAL = 3;
 
     private final Masque masque;
     private final double[][] map;
@@ -45,6 +46,18 @@ public class Map {
         return map;
     }
 
+    public static int getVOISINS() {
+        return VOISINS;
+    }
+
+    public static int getSIGMA() {
+        return SIGMA;
+    }
+
+    public static int getDISTANCE_MAX_LOCAL() {
+        return DISTANCE_MAX_LOCAL;
+    }
+
     public ArrayList<int[]> getPointsInterets(){
         ArrayList<int[]> points = new ArrayList<>();
         for (int i = 0; i < map.length; i++){
@@ -57,8 +70,8 @@ public class Map {
 
     private boolean isPointInteret(int i, int j, double[][] map){
         boolean pointInteret = true;
-        for (int i2 = i-1; i2 <= i+1; i2++){
-            for (int j2 = j-1; j2 <= j+1; j2++){
+        for (int i2 = i-DISTANCE_MAX_LOCAL; i2 <= i+DISTANCE_MAX_LOCAL; i2++){
+            for (int j2 = j-DISTANCE_MAX_LOCAL; j2 <= j+DISTANCE_MAX_LOCAL; j2++){
                 if (i2 != i || j2 != j) pointInteret = pointInteret && isSup(i, j, i2, j2, map);
             }
         }
