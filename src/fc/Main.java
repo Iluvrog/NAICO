@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class Main {
 
+    //Teste les versions texte de Masque et Map sur un exemple
     private void test1(){
         int n = 5;
         int[][] test = new int[n][n];

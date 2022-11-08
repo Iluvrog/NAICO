@@ -23,6 +23,7 @@ public class Main extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
+    //Teste les versions graphiques de Masque et Map sur un exemple
     private void test1(){
         setLayout(new GridLayout(2, 2));
 
