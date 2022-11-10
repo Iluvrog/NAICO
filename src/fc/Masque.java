@@ -10,46 +10,66 @@ public class Masque {
 
     private static final int seuil = 15;
 
+    private static final int tailleResize = 100;
+
     public Masque(int[][] masque){
         this.masque = masque;
     }
 
     public Masque(BufferedImage image){
-        int hauteur = image.getHeight();
-        int largeur = image.getWidth();
-        masque = new int[largeur][hauteur];
-
-        Color color;
-
-        for (int i = 0; i < largeur; i++){
-            for (int j = 0; j < hauteur; j++){
-                color = new Color(image.getRGB(i,j));
-                if (color.getBlue() <= seuil && color.getRed() <= seuil && color.getGreen() <= seuil) masque[i][j] = 1;
-            }
-        }
+        traiteImage(image);
     }
 
     public Masque(String path){
-        BufferedImage image;
         try {
-            image = ImageIO.read(new File(path));
+            traiteImage(ImageIO.read(new File(path)));
         } catch (Exception e){
             e.printStackTrace();
             return;
         }
+    }
+
+    private void traiteImage(BufferedImage image){
+        int minW = 9999999, minH = 9999999;
+        int maxW = 0, maxH = 0;
+
         int hauteur = image.getHeight();
         int largeur = image.getWidth();
-        masque = new int[largeur][hauteur];
 
         Color color;
 
         for (int i = 0; i < largeur; i++){
             for (int j = 0; j < hauteur; j++){
                 color = new Color(image.getRGB(i,j));
-                if (color.getBlue() <= seuil && color.getRed() <= seuil && color.getGreen() <= seuil) masque[i][j] = 1;
+                if (isUnderSeuil(color)) {
+                    if (j < minH) minH = j;
+                    if (j > maxH) maxH = j;
+                    if (i < minW) minW = i;
+                    if (i > maxW) maxW = i;
+                }
             }
         }
 
+        BufferedImage sub = image.getSubimage(minW, minH, maxW-minW, maxH-minH);
+
+        BufferedImage resize = new BufferedImage(tailleResize, tailleResize, BufferedImage.TYPE_INT_ARGB);
+        Graphics g = resize.createGraphics();
+        g.setColor(Color.WHITE);
+        g.fillRect(0, 0, tailleResize, tailleResize);
+        g.drawImage(sub, tailleResize/10, tailleResize/10, 8*tailleResize/10, 8*tailleResize/10, null);
+
+        masque = new int[tailleResize][tailleResize];
+
+        for (int i = 0; i < tailleResize; i++){
+            for (int j = 0; j < tailleResize; j++){
+                color = new Color(resize.getRGB(i,j));
+                if (isUnderSeuil(color)) masque[i][j] = 1;
+            }
+        }
+    }
+
+    private boolean isUnderSeuil(Color color){
+        return color.getBlue() <= seuil && color.getRed() <= seuil && color.getGreen() <= seuil;
     }
 
     public int getHauteur(){
