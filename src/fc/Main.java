@@ -1,5 +1,7 @@
 package fc;
 
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class Main {
@@ -26,9 +28,42 @@ public class Main {
         }
     }
 
+    //Je teste la fonction de comparaison des Map
+    private void test2(){
+        Map map1 = new Map(new Masque("./data/picture/A.png"));
+        Map map2 = new Map(new Masque("./data/picture/A.png"));
+        System.out.println(map1.compare(map2));
+    }
+
+    //Idem
+    private void test3(){
+        Map map = new Map(new Masque("./data/picture/A.png"));
+        BufferedImage chr;
+        Graphics g;
+        double res;
+        double min = 999999;
+        char minC = 0;
+
+        for (char i = 33; i < 127; i++){
+            chr = new BufferedImage(100, 100, BufferedImage.TYPE_INT_ARGB);
+            g = chr.createGraphics();
+            g.setColor(Color.WHITE);
+            g.fillRect(0, 0, 100, 100);
+            g.setColor(Color.BLACK);
+            g.drawString(String.valueOf(i), 25, 25);
+            res = map.compare(new Map(new Masque(chr)));
+            if (res < min) {
+                min = res;
+                minC = i;
+            }
+            //System.out.println(i + " : " + res);
+        }
+        System.out.println(minC + " : " + min);
+    }
+
     public static void main(String[] args){
         Main main = new Main();
 
-        main.test1();
+        main.test3();
     }
 }

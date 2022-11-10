@@ -50,7 +50,8 @@ public class Masque {
             }
         }
 
-        BufferedImage sub = image.getSubimage(minW, minH, maxW-minW, maxH-minH);
+        //System.out.println(minW + " " + minH + " " + maxW + " " +maxH);
+        BufferedImage sub = image.getSubimage(minW, minH, maxW-minW+1, maxH-minH+1);
 
         BufferedImage resize = new BufferedImage(tailleResize, tailleResize, BufferedImage.TYPE_INT_ARGB);
         Graphics g = resize.createGraphics();

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class Map {
 
-    private static final int VOISINS = 5;
+    private static final int VOISINS = 2;
     private static final int SIGMA = 1;
     private static final int DISTANCE_MAX_LOCAL = 3;
 
@@ -140,5 +140,23 @@ public class Map {
             if (point[0] == x && point[1] == y) return true;
         }
         return false;
+    }
+
+    public double compare(Map m){
+        double comp = 0;
+
+        double[][] mapComp = m.getMap();
+
+        int hauteur = map.length, largeur = map[0].length;
+
+        if (hauteur != mapComp.length || largeur != mapComp[0].length) return -1;
+
+        for (int i = 0; i < hauteur; i++){
+            for (int j = 0; j < largeur; j++){
+                comp+= Math.abs(map[i][j] - mapComp[i][j]);
+            }
+        }
+
+        return comp/hauteur/largeur;
     }
 }
