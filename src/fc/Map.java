@@ -157,6 +157,6 @@ public class Map {
             }
         }
 
-        return comp/hauteur/largeur;
+        return 1/(comp/hauteur/largeur);
     }
 }
