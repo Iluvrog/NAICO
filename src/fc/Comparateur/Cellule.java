@@ -17,6 +17,10 @@ public class Cellule {
         return name;
     }
 
+    public ArrayList<Map> getMaps() {
+        return maps;
+    }
+
     public void add(Map map){
         maps.add(map);
     }
