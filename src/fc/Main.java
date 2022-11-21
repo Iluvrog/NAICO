@@ -43,9 +43,15 @@ public class Main {
         System.out.println(c.compare(map));
     }
 
+    //met une Map en forme de texte et compare avec sa version recréée
+    private void test4(){
+        Map map = new Map(new Masque("./data/picture/A.png"));
+        System.out.println(map.compare(new Map(map.toLine())));
+    }
+
     public static void main(String[] args){
         Main main = new Main();
 
-        main.test3();
+        main.test1();
     }
 }

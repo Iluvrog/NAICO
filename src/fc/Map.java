@@ -10,34 +10,50 @@ public class Map {
     private static final int SIGMA = 1;
     private static final int DISTANCE_MAX_LOCAL = 3;
 
-    private final Masque masque;
+    //private final Masque masque;
     private final double[][] map;
 
     public Map(Masque masque){
-        this.masque = masque;
-
         int hauteur = masque.getHauteur();
         int largeur = masque.getLargeur();
 
         map = new double[hauteur][largeur];
         for (int i = 0; i < hauteur; i++){
             for (int j = 0; j < largeur; j++){
-                map[i][j] = getContrasteVoisin(i, j);
+                map[i][j] = getContrasteVoisin(i, j, masque);
             }
         }
     }
 
-    private double getContrasteVoisin(int i, int j){
+    public Map(String line){
+        int hauteur = line.charAt(0);
+        int largeur = line.charAt(1);
+
+        String bloc;
+
+        line = line.substring(2);
+
+        map = new double[hauteur][largeur];
+        for (int i = 0; i < hauteur; i++){
+            for (int j = 0; j < largeur; j++){
+                bloc = line.substring(0, 8);
+                line = line.substring(8);
+                map[i][j] = stringToDouble(bloc);
+            }
+        }
+    }
+
+    private double getContrasteVoisin(int i, int j, Masque masque){
         double contrasteVoisin = 0;
         for (int i2 = i- VOISINS; i2 <= i+ VOISINS; i2++){
             for (int j2 = j- VOISINS; j2 <= j+ VOISINS; j2++){
-                contrasteVoisin += getEcart(i, j, i2, j2) * Math.exp(-Math.sqrt((i-i2)*(i-i2)+(j-j2)*(j-j2))/ SIGMA);
+                contrasteVoisin += getEcart(i, j, i2, j2, masque) * Math.exp(-Math.sqrt((i-i2)*(i-i2)+(j-j2)*(j-j2))/ SIGMA);
             }
         }
         return contrasteVoisin;
     }
 
-    private double getEcart(int i1, int j1, int i2, int j2){
+    private double getEcart(int i1, int j1, int i2, int j2, Masque masque){
         if (i1<0 || j1<0 || i2<0 || j2<0 || i1>= masque.getHauteur() || i2>= masque.getHauteur() || j1>= masque.getLargeur() || j2>= masque.getLargeur()) return 0;
         return Math.abs(masque.getValue(i1, j1) - masque.getValue(i2, j2));
     }
@@ -98,8 +114,8 @@ public class Map {
     }
 
     public BufferedImage toBufferedImage(){
-        int hauteur = masque.getHauteur();
-        int largeur = masque.getLargeur();
+        int hauteur = map.length;
+        int largeur = map[0].length;
 
         BufferedImage image = new BufferedImage(hauteur, largeur, BufferedImage.TYPE_INT_ARGB);
 
@@ -122,8 +138,8 @@ public class Map {
     public BufferedImage toBufferedImagePointsInteret(){
         BufferedImage image = toBufferedImage();
 
-        int hauteur = masque.getHauteur();
-        int largeur = masque.getLargeur();
+        int hauteur = map.length;
+        int largeur = map[0].length;
 
         for (int i = 0; i < hauteur; i++){
             for (int j = 0; j < largeur; j++){
@@ -158,5 +174,45 @@ public class Map {
         }
 
         return 1/(comp/hauteur/largeur);
+    }
+
+    public String toLine(){
+        StringBuilder res = new StringBuilder();
+
+        int hauteur = map.length;
+        int largeur = map[0].length;
+
+        res.append((char) hauteur);
+        res.append((char) largeur);
+
+        for (int i = 0; i < hauteur; i++){
+            for (int j = 0; j < largeur; j++){
+                res.append(doubleToString(map[i][j]));
+            }
+        }
+
+        return res.toString();
+    }
+
+    public static String doubleToString(double d){
+        StringBuilder res = new StringBuilder();
+
+        long lng = Double.doubleToLongBits(d);
+        for(int i = 0; i < 8; i++) res.append((char) ((lng >> ((7 - i) * 8)) & 0xff));
+
+        return res.toString();
+    }
+
+    public static double stringToDouble(String s){
+        char c;
+        long lng = 0;
+
+        for (int i = 0 ; i < 8; i++){
+            c = s.charAt(i);
+            lng = lng << 8;
+            lng += c;
+        }
+
+        return Double.longBitsToDouble(lng);
     }
 }

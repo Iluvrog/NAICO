@@ -5,12 +5,15 @@ import fc.Masque;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.ArrayList;
 
 public class Comparateur {
     private static Comparateur instance;
 
     ArrayList<Cellule> cellules;
+
+    String file_name = "precalc.data";
 
     private Comparateur(){
         cellules = new ArrayList<>();
@@ -56,5 +59,13 @@ public class Comparateur {
 
             cellules.add(cellule);
         }
+    }
+
+    public void save(){
+        File file = new File(file_name);
+    }
+
+    public void load(){
+
     }
 }
