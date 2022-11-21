@@ -49,7 +49,7 @@ class MapTest {
     }
 
     @Test
-    void compareDifférents(){
+    void compareDifferents(){
         int n = 5;
         int[][] test1 = new int[n][n];
         for (int i = 1; i < n-1; i++){
@@ -72,7 +72,7 @@ class MapTest {
     }
 
     @Test
-    void compareTaillesDifférentes(){
+    void compareTaillesDifferentes(){
         int n = 5;
         int[][] test1 = new int[n][n];
         for (int i = 1; i < n-1; i++){
