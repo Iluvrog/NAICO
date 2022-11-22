@@ -10,7 +10,7 @@ public class Masque {
 
     private static final int seuil = 15;
 
-    private static final int tailleResize = 100;
+    private static final int tailleResize = 30;
 
     public Masque(int[][] masque){
         this.masque = masque;
@@ -57,7 +57,7 @@ public class Masque {
         Graphics g = resize.createGraphics();
         g.setColor(Color.WHITE);
         g.fillRect(0, 0, tailleResize, tailleResize);
-        g.drawImage(sub, tailleResize/10, tailleResize/10, 8*tailleResize/10, 8*tailleResize/10, null);
+        g.drawImage(sub, tailleResize/20, tailleResize/20, 9*tailleResize/10, 9*tailleResize/10, null);
 
         masque = new int[tailleResize][tailleResize];
 

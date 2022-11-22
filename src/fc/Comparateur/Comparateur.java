@@ -5,6 +5,7 @@ import fc.Masque;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileWriter;
 import java.util.ArrayList;
 
@@ -14,6 +15,8 @@ public class Comparateur {
     private final ArrayList<Cellule> cellules;
 
     private static final String file_name = "precalc.data";
+
+    private static final int size_img = 50;
 
     private Comparateur(){
         cellules = new ArrayList<>();
@@ -50,12 +53,12 @@ public class Comparateur {
         for (char i = 33; i < 127; i++){
             cellule = new Cellule(i);
 
-            img = new BufferedImage(100, 100, BufferedImage.TYPE_INT_ARGB);
+            img = new BufferedImage(size_img, size_img, BufferedImage.TYPE_INT_ARGB);
             g = img.createGraphics();
             g.setColor(Color.WHITE);
-            g.fillRect(0, 0, 100, 100);
+            g.fillRect(0, 0, size_img, size_img);
             g.setColor(Color.BLACK);
-            g.drawString(String.valueOf(i), 25, 25);
+            g.drawString(String.valueOf(i), size_img/4, size_img/4);
 
             cellule.add(new Map(new Masque(img)));
 
@@ -80,9 +83,13 @@ public class Comparateur {
         try {
             FileWriter file = new FileWriter(file_name);
             file.write(saveForm.toString());
+            file.close();
         } catch (Exception e){
             e.printStackTrace();
         }
+
+        File f = new File(file_name);
+        System.out.println("Size of " + file_name + " : " + f.length()/1024./1024 + " Mo");
     }
 
     public static Comparateur load(){
