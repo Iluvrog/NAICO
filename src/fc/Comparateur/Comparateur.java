@@ -5,7 +5,9 @@ import fc.Masque;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
 
@@ -96,7 +98,30 @@ public class Comparateur {
         System.out.println("Size of " + name + " : " + f.length()/1024./1024 + " Mo");
     }
 
-    public static Comparateur load(){
-        return instance;
+    public void load(){
+        load(default_file_name);
+    }
+
+    public void load(String name){
+        File f = new File(name);
+        if (!f.exists()) return;
+
+        try {
+            FileReader fileReader = new FileReader(f);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            StringBuilder sb = new StringBuilder();
+            String line;
+            while((line = bufferedReader.readLine()) != null)
+            {
+                sb.append(line);
+                sb.append("\n");
+            }
+            fileReader.close();
+
+            String saveForm = sb.substring(0, sb.length()-1);
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }
