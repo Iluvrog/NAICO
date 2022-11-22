@@ -5,15 +5,15 @@ import fc.Masque;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
+import java.io.FileWriter;
 import java.util.ArrayList;
 
 public class Comparateur {
     private static Comparateur instance;
 
-    ArrayList<Cellule> cellules;
+    private final ArrayList<Cellule> cellules;
 
-    String file_name = "precalc.data";
+    private static final String file_name = "precalc.data";
 
     private Comparateur(){
         cellules = new ArrayList<>();
@@ -39,8 +39,10 @@ public class Comparateur {
     }
 
     public void fill(){
-        cellules.clear();
+        fillAscii();
+    }
 
+    public void fillAscii(){
         Cellule cellule;
         BufferedImage img;
         Graphics g;
@@ -62,10 +64,28 @@ public class Comparateur {
     }
 
     public void save(){
-        File file = new File(file_name);
+        StringBuilder saveForm = new StringBuilder();
+
+        String celluleSave;
+        int size;
+        for (Cellule c : cellules){
+            celluleSave = c.saveForm();
+            size = celluleSave.length();
+            for (int i = 0; i < 4; i++){
+                saveForm.append((char) (size >> ((3 - i) * 8) & 0xff));
+            }
+            saveForm.append(celluleSave);
+        }
+
+        try {
+            FileWriter file = new FileWriter(file_name);
+            file.write(saveForm.toString());
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
-    public void load(){
-
+    public static Comparateur load(){
+        return instance;
     }
 }

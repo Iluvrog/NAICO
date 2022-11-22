@@ -26,12 +26,22 @@ public class Map {
     }
 
     public Map(String line){
-        int hauteur = line.charAt(0);
-        int largeur = line.charAt(1);
+        int hauteur = 0;
+        int largeur = 0;
+
+        for (int i = 0; i < 4; i++){
+            hauteur = hauteur << 8;
+            hauteur += line.charAt(0);
+            line = line.substring(1);
+        }
+
+        for (int i = 0; i < 4; i++){
+            largeur = largeur << 8;
+            largeur += line.charAt(0);
+            line = line.substring(1);
+        }
 
         String bloc;
-
-        line = line.substring(2);
 
         map = new double[hauteur][largeur];
         for (int i = 0; i < hauteur; i++){
@@ -182,8 +192,12 @@ public class Map {
         int hauteur = map.length;
         int largeur = map[0].length;
 
-        res.append((char) hauteur);
-        res.append((char) largeur);
+        for (int i = 0; i < 4; i++){
+            res.append((char) (hauteur >> ((3 - i) * 8) & 0xff));
+        }
+        for (int i = 0; i < 4; i++){
+            res.append((char) (largeur >> ((3 - i) * 8) & 0xff));
+        }
 
         for (int i = 0; i < hauteur; i++){
             for (int j = 0; j < largeur; j++){
