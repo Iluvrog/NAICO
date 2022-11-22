@@ -14,7 +14,7 @@ public class Comparateur {
 
     private final ArrayList<Cellule> cellules;
 
-    private static final String file_name = "precalc.data";
+    private static final String default_file_name = "precalc.data";
 
     private static final int size_img = 50;
 
@@ -67,6 +67,10 @@ public class Comparateur {
     }
 
     public void save(){
+        save(default_file_name);
+    }
+
+    public void save(String name){
         StringBuilder saveForm = new StringBuilder();
 
         String celluleSave;
@@ -81,15 +85,15 @@ public class Comparateur {
         }
 
         try {
-            FileWriter file = new FileWriter(file_name);
+            FileWriter file = new FileWriter(name);
             file.write(saveForm.toString());
             file.close();
         } catch (Exception e){
             e.printStackTrace();
         }
 
-        File f = new File(file_name);
-        System.out.println("Size of " + file_name + " : " + f.length()/1024./1024 + " Mo");
+        File f = new File(name);
+        System.out.println("Size of " + name + " : " + f.length()/1024./1024 + " Mo");
     }
 
     public static Comparateur load(){
