@@ -83,6 +83,7 @@ public class Comparateur {
             for (int i = 0; i < 4; i++){
                 saveForm.append((char) (size >> ((3 - i) * 8) & 0xff));
             }
+            saveForm.append((char)0);
             saveForm.append(celluleSave);
         }
 
@@ -125,6 +126,7 @@ public class Comparateur {
             String saveForm = sb.substring(0, sb.length()-1);
 
             int size;
+            char type;
 
             while (saveForm.length() != 0){
                 size = 0;
@@ -134,7 +136,12 @@ public class Comparateur {
                     saveForm = saveForm.substring(1);
                 }
 
-                cellules.add(new Cellule(saveForm.substring(0, size)));
+                type = saveForm.charAt(0);
+                saveForm = saveForm.substring(1);
+
+                if (type == 0) {
+                    cellules.add(new Cellule(saveForm.substring(0, size)));
+                } else return;
                 saveForm = saveForm.substring(size);
             }
 
