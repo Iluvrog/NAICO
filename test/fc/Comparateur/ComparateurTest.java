@@ -30,13 +30,24 @@ class ComparateurTest {
         Comparateur comparateur = Comparateur.getInstance();
         comparateur.fill();
 
-        int[][] test0 = new int[][]{{0}};
+        int taille = Masque.getTailleResize();
+
+        int[][] test0 = new int[taille][taille];
+        test0[0][0] = 1;
         Map map0 = new Map(new Masque(test0));
 
-        int[][] test1 = new int[][]{{0, 1}, {1, 0}};
+        int[][] test1 = new int[taille][taille];
+        for (int i = 0; i < taille; i++){
+            test1[i][i] = 1;
+        }
         Map map1 = new Map(new Masque(test1));
 
-        int[][] test2 = new int[][]{{0, 1, 0}};
+        int[][] test2 = new int[taille][taille];
+        for (int i = 1; i < taille-1; i++){
+            for (int j = 1; j < taille-1; j++){
+                test2[i][j] = 1;
+            }
+        }
         Map map2 = new Map(new Masque(test2));
 
         char[] before = new char[]{comparateur.compare(map0), comparateur.compare(map1), comparateur.compare(map2)};

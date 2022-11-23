@@ -106,6 +106,8 @@ public class Comparateur {
         File f = new File(name);
         if (!f.exists()) return;
 
+        cellules.clear();
+
         try {
             FileReader fileReader = new FileReader(f);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -118,7 +120,23 @@ public class Comparateur {
             }
             fileReader.close();
 
+            if (sb.length() == 0) return;
+
             String saveForm = sb.substring(0, sb.length()-1);
+
+            int size;
+
+            while (saveForm.length() != 0){
+                size = 0;
+                for (int i = 0; i < 4; i++){
+                    size = size << 8;
+                    size += saveForm.charAt(0);
+                    saveForm = saveForm.substring(1);
+                }
+
+                cellules.add(new Cellule(saveForm.substring(0, size)));
+                saveForm = saveForm.substring(size);
+            }
 
         } catch (Exception e){
             e.printStackTrace();
