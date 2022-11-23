@@ -85,6 +85,10 @@ public class Masque {
         return masque[i][j];
     }
 
+    public static int getTailleResize(){
+        return tailleResize;
+    }
+
     @Override
     public String toString() {
         StringBuilder string = new StringBuilder();
