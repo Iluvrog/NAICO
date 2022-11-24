@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class Comparateur {
     private static Comparateur instance;
 
-    private final ArrayList<Cellule> cellules;
+    private final ArrayList<CelluleMap> celluleMaps;
 
     private static final String default_file_name = "precalc.data";
 
@@ -25,7 +25,7 @@ public class Comparateur {
      */
 
     private Comparateur(){
-        cellules = new ArrayList<>();
+        celluleMaps = new ArrayList<>();
     }
 
     public static Comparateur getInstance(){
@@ -38,7 +38,7 @@ public class Comparateur {
         char res = 0;
         double actcomp = 0;
         double comp;
-        for (Cellule c : cellules){
+        for (CelluleMap c : celluleMaps){
             comp = c.compare(map);
             if (comp > actcomp){
                 actcomp = comp;
@@ -53,12 +53,12 @@ public class Comparateur {
     }
 
     public void fillAscii(){
-        Cellule cellule;
+        CelluleMap celluleMap;
         BufferedImage img;
         Graphics g;
 
         for (char i = 33; i < 127; i++){
-            cellule = new Cellule(i);
+            celluleMap = new CelluleMap(i);
 
             img = new BufferedImage(size_img, size_img, BufferedImage.TYPE_INT_ARGB);
             g = img.createGraphics();
@@ -67,9 +67,9 @@ public class Comparateur {
             g.setColor(Color.BLACK);
             g.drawString(String.valueOf(i), size_img/4, size_img/4);
 
-            cellule.add(new Map(new Masque(img)));
+            celluleMap.add(new Map(new Masque(img)));
 
-            cellules.add(cellule);
+            celluleMaps.add(celluleMap);
         }
     }
 
@@ -82,7 +82,7 @@ public class Comparateur {
 
         String celluleSave;
         int size;
-        for (Cellule c : cellules){
+        for (CelluleMap c : celluleMaps){
             celluleSave = c.saveForm();
             size = celluleSave.length();
             for (int i = 0; i < 4; i++){
@@ -109,7 +109,7 @@ public class Comparateur {
     }
 
     public void load(String name){
-        cellules.clear();
+        celluleMaps.clear();
 
         File f = new File(name);
         if (!f.exists()){
@@ -151,7 +151,7 @@ public class Comparateur {
                 saveForm = saveForm.substring(1);
 
                 if (type == 0) {
-                    cellules.add(new Cellule(saveForm.substring(0, size)));
+                    celluleMaps.add(new CelluleMap(saveForm.substring(0, size)));
                 } else {
                     loadError();
                     return;
@@ -165,6 +165,6 @@ public class Comparateur {
     }
 
     private void loadError(){
-        cellules.clear();
+        celluleMaps.clear();
     }
 }
