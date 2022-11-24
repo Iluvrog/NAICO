@@ -20,6 +20,10 @@ public class Comparateur {
 
     private static final int size_img = 50;
 
+    /* Liste des types
+     * 0 : Cellule
+     */
+
     private Comparateur(){
         cellules = new ArrayList<>();
     }
@@ -104,10 +108,13 @@ public class Comparateur {
     }
 
     public void load(String name){
-        File f = new File(name);
-        if (!f.exists()) return;
-
         cellules.clear();
+
+        File f = new File(name);
+        if (!f.exists()){
+            loadError();
+            return;
+        }
 
         try {
             FileReader fileReader = new FileReader(f);
@@ -121,7 +128,10 @@ public class Comparateur {
             }
             fileReader.close();
 
-            if (sb.length() == 0) return;
+            if (sb.length() == 0){
+                loadError();
+                return;
+            }
 
             String saveForm = sb.substring(0, sb.length()-1);
 
@@ -141,12 +151,19 @@ public class Comparateur {
 
                 if (type == 0) {
                     cellules.add(new Cellule(saveForm.substring(0, size)));
-                } else return;
+                } else {
+                    loadError();
+                    return;
+                }
                 saveForm = saveForm.substring(size);
             }
 
         } catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    private void loadError(){
+        cellules.clear();
     }
 }
