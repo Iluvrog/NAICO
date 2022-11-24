@@ -6,10 +6,10 @@ public class Main {
 
     //Idem
     private void test3(){
-        Map map = new Map(new Masque("./data/picture/A.png"));
+        Masque masque = new Masque("./data/picture/A.png");
         Comparateur c = Comparateur.getInstance();
         c.fill();
-        System.out.println(c.compare(map));
+        System.out.println(c.compare(masque));
     }
 
     //met une Map en forme de texte et compare avec sa version recréée

@@ -33,7 +33,8 @@ public class Comparateur {
         return instance;
     }
 
-    public char compare(Map map){
+    public char compare(Masque masque){
+        Map map = new Map(masque);
         char res = 0;
         double actcomp = 0;
         double comp;
