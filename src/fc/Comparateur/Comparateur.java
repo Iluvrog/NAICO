@@ -21,7 +21,7 @@ public class Comparateur {
     private static final int size_img = 50;
 
     /* Liste des types
-     * 0 : Cellule
+     * 0 : CelluleMap
      */
 
     private Comparateur(){
