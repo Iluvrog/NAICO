@@ -5,7 +5,7 @@ import Find.Verbose.CelluleVerbose;
 import Find.Verbose.Verbose;
 
 
-public class Main {
+public class Tester {
 
     //Idem
     private void test3(){
@@ -31,8 +31,8 @@ public class Main {
     }
 
     public static void main(String[] args){
-        Main main = new Main();
+        Tester tester = new Tester();
 
-        main.test5();
+        tester.test5();
     }
 }
