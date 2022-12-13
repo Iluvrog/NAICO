@@ -1,4 +1,4 @@
-package Find.fc;
+package Find;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

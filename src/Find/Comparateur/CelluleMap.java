@@ -1,6 +1,6 @@
-package Find.fc.Comparateur;
+package Find.Comparateur;
 
-import Find.fc.Map;
+import Find.Map;
 
 import java.util.ArrayList;
 

@@ -1,7 +1,7 @@
-package Find.fc.Comparateur;
+package Find.Comparateur;
 
-import Find.fc.Map;
-import Find.fc.Masque;
+import Find.Map;
+import Find.Masque;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

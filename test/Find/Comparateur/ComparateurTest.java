@@ -1,6 +1,6 @@
-package Find.fc.Comparateur;
+package Find.Comparateur;
 
-import Find.fc.Masque;
+import Find.Masque;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
 

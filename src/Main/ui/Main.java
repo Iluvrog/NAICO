@@ -1,7 +1,7 @@
 package Main.ui;
 
-import Find.fc.Map;
-import Find.fc.Masque;
+import Find.Map;
+import Find.Masque;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

@@ -1,5 +1,7 @@
 package Find.fc;
 
+import Find.Map;
+import Find.Masque;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Timeout;
 

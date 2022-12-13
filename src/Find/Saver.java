@@ -1,6 +1,6 @@
-package Find.fc;
+package Find;
 
-import Find.fc.Comparateur.Comparateur;
+import Find.Comparateur.Comparateur;
 
 public class Saver {
 

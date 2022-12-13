@@ -1,4 +1,4 @@
-package Find.fc.Verbose;
+package Find.Verbose;
 
 import java.util.ArrayList;
 
