@@ -81,9 +81,9 @@ public class Cutter {
                 }
             }
 
-            res[0][i] = r;
-            res[1][i] = g;
-            res[2][i] = b;
+            res[0][i] = r/other_length;
+            res[1][i] = g/other_length;
+            res[2][i] = b/other_length;
         }
 
         return res;
@@ -92,15 +92,8 @@ public class Cutter {
     private ArrayList<Integer> findCut(int[][] scan){
         ArrayList<Integer> cuts = new ArrayList<>();
 
-        int max = 0;
-        for (int i = 0; i < scan.length; i++)
-            for (int j = 0; j < scan[0].length; j++)
-                if (scan[i][j] > max) max = scan[i][j];
-
-                boolean b;
         for (int i = 1; i < scan[0].length - 1; i++){
-            b = scan[0][i] == max && scan[1][i] == max && scan[2][i] == max;
-            if (isCut(scan[0][i-1], scan[1][i-1], scan[2][i-1], scan[0][i], scan[1][i], scan[2][i], scan[0][i+1], scan[1][i+1], scan[2][i+1]) && b){
+            if (isCut(scan[0][i-1], scan[1][i-1], scan[2][i-1], scan[0][i], scan[1][i], scan[2][i], scan[0][i+1], scan[1][i+1], scan[2][i+1])){
                 cuts.add(i);
             }
         }
@@ -122,6 +115,8 @@ public class Cutter {
         res = rB < rP && gB < gP && bB < bP;
         res = res && rP >= rA && gP >= gA && bP >= bA;
         //res = res && rA == 31110 && gA == 31110 && bA == 31110;
+
+        res = res && rA == 255 && gA == 255 && bA == 255;
 
         return res;
     }
