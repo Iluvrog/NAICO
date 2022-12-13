@@ -16,7 +16,7 @@ public class Tester {
         }
         //*
         int i = 0;
-        for (BufferedImage line : Cutter.getInstance().cutVertically(img)){
+        for (BufferedImage line : Cutter.getInstance().cutHorizontally(img)){
             try {
                 ImageIO.write(line, "png", new File("./data/picture/line" + i + ".png"));
             } catch (Exception e){}
