@@ -1,4 +1,4 @@
-package fc.Verbose;
+package Find.fc.Verbose;
 
 import org.junit.jupiter.api.Test;
 

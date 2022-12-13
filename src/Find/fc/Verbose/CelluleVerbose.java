@@ -1,6 +1,5 @@
-package fc.Verbose;
+package Find.fc.Verbose;
 
-import java.util.ArrayList;
 import java.util.Objects;
 
 public class CelluleVerbose {

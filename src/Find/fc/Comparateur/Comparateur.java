@@ -1,8 +1,8 @@
-package fc.Comparateur;
+package Find.fc.Comparateur;
 
-import fc.Map;
-import fc.Masque;
-import fc.Verbose.Verbose;
+import Find.fc.Map;
+import Find.fc.Masque;
+import Find.fc.Verbose.Verbose;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

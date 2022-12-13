@@ -1,4 +1,4 @@
-package fc;
+package Find.fc;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

@@ -1,8 +1,8 @@
-package fc;
+package Find.fc;
 
-import fc.Comparateur.Comparateur;
-import fc.Verbose.CelluleVerbose;
-import fc.Verbose.Verbose;
+import Find.fc.Comparateur.Comparateur;
+import Find.fc.Verbose.CelluleVerbose;
+import Find.fc.Verbose.Verbose;
 
 
 public class Main {
