@@ -1,4 +1,4 @@
-package Find.ui;
+package ui;
 
 import Find.fc.Map;
 import Find.fc.Masque;
