@@ -7,7 +7,7 @@ public class Verbose {
     private char winner;
     private double score;
 
-    private ArrayList<CelluleVerbose> celluleVerboses;
+    private final ArrayList<CelluleVerbose> celluleVerboses;
 
     Verbose(){
         winner = 0;
@@ -31,7 +31,8 @@ public class Verbose {
 
         if (!haveCel){
             CelluleVerbose newCellule = new CelluleVerbose();
-            newCellule.add(type + " :" + "\t" + candidat + " : " + newscore);
+            newCellule.add(type + " :");
+            newCellule.add(candidat + " : " + newscore);
             celluleVerboses.add(newCellule);
         }
     }
