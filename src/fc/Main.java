@@ -1,6 +1,9 @@
 package fc;
 
 import fc.Comparateur.Comparateur;
+import fc.Verbose.CelluleVerbose;
+import fc.Verbose.Verbose;
+
 
 public class Main {
 
@@ -18,9 +21,18 @@ public class Main {
         System.out.println(map.compare(new Map(map.toLine())));
     }
 
+    private void test5(){
+        Comparateur comparateur = Comparateur.getInstance();
+        comparateur.fill();
+        Verbose verbose = comparateur.compare_Verbose(new Masque("./data/picture/A.png"));
+        for (CelluleVerbose c : verbose.getCelluleVerboses()){
+            System.out.println(c.getVerboseString());
+        }
+    }
+
     public static void main(String[] args){
         Main main = new Main();
 
-        main.test3();
+        main.test5();
     }
 }

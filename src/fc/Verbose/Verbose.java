@@ -9,7 +9,7 @@ public class Verbose {
 
     private final ArrayList<CelluleVerbose> celluleVerboses;
 
-    Verbose(){
+    public Verbose(){
         winner = 0;
         score = -1;
         celluleVerboses = new ArrayList<>();

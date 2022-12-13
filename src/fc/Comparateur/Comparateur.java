@@ -2,6 +2,7 @@ package fc.Comparateur;
 
 import fc.Map;
 import fc.Masque;
+import fc.Verbose.Verbose;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -34,18 +35,20 @@ public class Comparateur {
     }
 
     public char compare(Masque masque){
+        return compare_Verbose(masque).getWinner();
+    }
+
+    public Verbose compare_Verbose(Masque masque){
         Map map = new Map(masque);
-        char res = 0;
-        double actcomp = 0;
+
+        Verbose verbose = new Verbose();
+
         double comp;
         for (CelluleMap c : celluleMaps){
             comp = c.compare(map);
-            if (comp > actcomp){
-                actcomp = comp;
-                res = c.getName();
-            }
+            verbose.add(c.getName(), comp, "CelluleMap");
         }
-        return res;
+        return verbose;
     }
 
     public void fill(){
@@ -65,7 +68,7 @@ public class Comparateur {
             g.setColor(Color.WHITE);
             g.fillRect(0, 0, size_img, size_img);
             g.setColor(Color.BLACK);
-            g.drawString(String.valueOf(i), size_img/4, size_img/4);
+            g.drawString(String.valueOf(i), 0, size_img/4);
 
             celluleMap.add(new Map(new Masque(img)));
 
