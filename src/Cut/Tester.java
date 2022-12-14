@@ -26,9 +26,10 @@ public class Tester {
     }
 
     private void test2(){
+        int ligne = 0;
         BufferedImage img;
         try {
-            img = ImageIO.read(new File("./data/picture/line0.png"));
+            img = ImageIO.read(new File("./data/picture/line" + ligne + ".png"));
         } catch (Exception e){
             e.printStackTrace();
             return;
@@ -37,7 +38,7 @@ public class Tester {
         int i = 0;
         for (BufferedImage line : Cutter.getInstance().cutVertically(img)){
             try {
-                ImageIO.write(line, "png", new File("./data/picture/char0_" + i + ".png"));
+                ImageIO.write(line, "png", new File("./data/picture/char" + ligne + "_" + i + ".png"));
             } catch (Exception e){}
             i++;
         }

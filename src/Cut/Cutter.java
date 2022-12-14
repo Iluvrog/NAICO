@@ -48,8 +48,10 @@ public class Cutter {
 
     private ArrayList<Integer> cut(BufferedImage text, int type){
         int[][] scan = scanner(type, text);
-        //for (int i = 0; i < scan[0].length; i++) System.out.println(scan[0][i]);
-        return findCut(scan);
+        int permCut;
+        if (type == 0) permCut = 253;
+        else permCut = 245;
+        return findCut(scan, permCut);
     }
 
     /*
@@ -63,7 +65,7 @@ public class Cutter {
         if (type == 0) {length = img.getHeight(); other_length = img.getWidth();}
         else {length = img.getWidth(); other_length = img.getHeight();}
 
-        int[][] res = new int[3][length];
+        int[][] res = new int[4][length];
 
         int r,g,b;
         for (int i = 0; i < length; i++){
@@ -84,16 +86,17 @@ public class Cutter {
             res[0][i] = r/other_length;
             res[1][i] = g/other_length;
             res[2][i] = b/other_length;
+            res[3][i] = (int) ((0.2126*r + 0.7152*g + 0.0722*b) / other_length);
         }
 
         return res;
     }
 
-    private ArrayList<Integer> findCut(int[][] scan){
+    private ArrayList<Integer> findCut(int[][] scan, int permCut){
         ArrayList<Integer> cuts = new ArrayList<>();
 
         for (int i = 1; i < scan[0].length - 1; i++){
-            if (isCut(scan[0][i-1], scan[1][i-1], scan[2][i-1], scan[0][i], scan[1][i], scan[2][i], scan[0][i+1], scan[1][i+1], scan[2][i+1])){
+            if (isCut(scan[3][i-1], scan[3][i], scan[3][i+1], permCut)){
                 cuts.add(i);
             }
         }
@@ -109,7 +112,7 @@ public class Cutter {
      * P = Present
      * A = After
      */
-    private boolean isCut(int rB, int gB, int bB, int rP, int gP, int bP, int rA, int gA, int bA){
+    /*private boolean isCut(int rB, int gB, int bB, int rP, int gP, int bP, int rA, int gA, int bA){
         boolean res;
 
         res = rB < rP && gB < gP && bB < bP;
@@ -119,5 +122,9 @@ public class Cutter {
         res = res && rA == 255 && gA == 255 && bA == 255;
 
         return res;
+    }*/
+
+    private boolean isCut(int lB, int lP, int lA, int permCut){
+        return lB < lP && lP >= lA && lP > permCut;
     }
 }

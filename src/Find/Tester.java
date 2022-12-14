@@ -21,10 +21,11 @@ public class Tester {
         System.out.println(map.compare(new Map(map.toLine())));
     }
 
+    //Teste les verboses
     private void test5(){
         Comparateur comparateur = Comparateur.getInstance();
         comparateur.fill();
-        Verbose verbose = comparateur.compare_Verbose(new Masque("./data/picture/A.png"));
+        Verbose verbose = comparateur.compare_Verbose(new Masque("./data/picture/char0_0.png"));
         for (CelluleVerbose c : verbose.getCelluleVerboses()){
             System.out.println(c.getVerboseString());
         }
