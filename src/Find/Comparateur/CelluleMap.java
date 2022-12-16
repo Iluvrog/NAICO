@@ -1,19 +1,19 @@
-package fc.Comparateur;
+package Find.Comparateur;
 
-import fc.Map;
+import Find.Map;
 
 import java.util.ArrayList;
 
-public class Cellule {
+public class CelluleMap {
     private final char name;
     private final ArrayList<Map> maps;
 
-    Cellule(char name){
+    CelluleMap(char name){
         this.name = name;
         maps = new ArrayList<>();
     }
 
-    Cellule(String saveF){
+    CelluleMap(String saveF){
         maps = new ArrayList<>();
         name = saveF.charAt(0);
 

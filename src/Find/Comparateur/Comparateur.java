@@ -1,7 +1,8 @@
-package fc.Comparateur;
+package Find.Comparateur;
 
-import fc.Map;
-import fc.Masque;
+import Find.Map;
+import Find.Masque;
+import Find.Verbose.Verbose;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -14,14 +15,18 @@ import java.util.ArrayList;
 public class Comparateur {
     private static Comparateur instance;
 
-    private final ArrayList<Cellule> cellules;
+    private final ArrayList<CelluleMap> celluleMaps;
 
     private static final String default_file_name = "precalc.data";
 
     private static final int size_img = 50;
 
+    /* Liste des types
+     * 0 : CelluleMap
+     */
+
     private Comparateur(){
-        cellules = new ArrayList<>();
+        celluleMaps = new ArrayList<>();
     }
 
     public static Comparateur getInstance(){
@@ -29,18 +34,21 @@ public class Comparateur {
         return instance;
     }
 
-    public char compare(Map map){
-        char res = 0;
-        double actcomp = 0;
+    public char compare(Masque masque){
+        return compare_Verbose(masque).getWinner();
+    }
+
+    public Verbose compare_Verbose(Masque masque){
+        Map map = new Map(masque);
+
+        Verbose verbose = new Verbose();
+
         double comp;
-        for (Cellule c : cellules){
+        for (CelluleMap c : celluleMaps){
             comp = c.compare(map);
-            if (comp > actcomp){
-                actcomp = comp;
-                res = c.getName();
-            }
+            verbose.add(c.getName(), comp, "CelluleMap");
         }
-        return res;
+        return verbose;
     }
 
     public void fill(){
@@ -48,23 +56,23 @@ public class Comparateur {
     }
 
     public void fillAscii(){
-        Cellule cellule;
+        CelluleMap celluleMap;
         BufferedImage img;
         Graphics g;
 
         for (char i = 33; i < 127; i++){
-            cellule = new Cellule(i);
+            celluleMap = new CelluleMap(i);
 
             img = new BufferedImage(size_img, size_img, BufferedImage.TYPE_INT_ARGB);
             g = img.createGraphics();
             g.setColor(Color.WHITE);
             g.fillRect(0, 0, size_img, size_img);
             g.setColor(Color.BLACK);
-            g.drawString(String.valueOf(i), size_img/4, size_img/4);
+            g.drawString(String.valueOf(i), 0, size_img/4);
 
-            cellule.add(new Map(new Masque(img)));
+            celluleMap.add(new Map(new Masque(img)));
 
-            cellules.add(cellule);
+            celluleMaps.add(celluleMap);
         }
     }
 
@@ -77,7 +85,7 @@ public class Comparateur {
 
         String celluleSave;
         int size;
-        for (Cellule c : cellules){
+        for (CelluleMap c : celluleMaps){
             celluleSave = c.saveForm();
             size = celluleSave.length();
             for (int i = 0; i < 4; i++){
@@ -104,10 +112,13 @@ public class Comparateur {
     }
 
     public void load(String name){
-        File f = new File(name);
-        if (!f.exists()) return;
+        celluleMaps.clear();
 
-        cellules.clear();
+        File f = new File(name);
+        if (!f.exists()){
+            loadError();
+            return;
+        }
 
         try {
             FileReader fileReader = new FileReader(f);
@@ -121,7 +132,10 @@ public class Comparateur {
             }
             fileReader.close();
 
-            if (sb.length() == 0) return;
+            if (sb.length() == 0){
+                loadError();
+                return;
+            }
 
             String saveForm = sb.substring(0, sb.length()-1);
 
@@ -140,13 +154,20 @@ public class Comparateur {
                 saveForm = saveForm.substring(1);
 
                 if (type == 0) {
-                    cellules.add(new Cellule(saveForm.substring(0, size)));
-                } else return;
+                    celluleMaps.add(new CelluleMap(saveForm.substring(0, size)));
+                } else {
+                    loadError();
+                    return;
+                }
                 saveForm = saveForm.substring(size);
             }
 
         } catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    private void loadError(){
+        celluleMaps.clear();
     }
 }
