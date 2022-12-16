@@ -23,7 +23,7 @@ public class Cutter {
 
         int startCut = 0;
         for (int i : cutPoint){
-            cuts.add(text.getSubimage(0, startCut, text.getWidth(), i-startCut));
+            cuts.add(text.getSubimage(0, startCut+1, text.getWidth(), i-startCut-1));
             startCut = i;
         }
         //cuts.add(text.getSubimage(0, startCut, text.getWidth(), text.getHeight()-startCut));
@@ -38,7 +38,7 @@ public class Cutter {
 
         int startCut = 0;
         for (int i : cutPoint){
-            cuts.add(text.getSubimage(startCut, 0, i-startCut, text.getHeight()));
+            cuts.add(text.getSubimage(startCut+1, 0, i-startCut-1, text.getHeight()));
             startCut = i;
         }
         //cuts.add(text.getSubimage(startCut, 0, text.getWidth()-startCut, text.getHeight()));
