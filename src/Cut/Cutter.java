@@ -7,6 +7,12 @@ public class Cutter {
 
     private static Cutter instance;
 
+    /*
+     * 0 = Horizontally
+     * 1 = Vertically
+     */
+    private int type = 0;
+
     private Cutter(){
 
     }
@@ -17,9 +23,11 @@ public class Cutter {
     }
 
     public ArrayList<BufferedImage> cutHorizontally(BufferedImage text){
+        type = 0;
+
         ArrayList<BufferedImage> cuts = new ArrayList<>();
 
-        ArrayList<Integer> cutPoint =  cut(text, 0);
+        ArrayList<Integer> cutPoint =  cut(text);
 
         int startCut = 0;
         for (int i : cutPoint){
@@ -32,9 +40,11 @@ public class Cutter {
     }
 
     public ArrayList<BufferedImage> cutVertically(BufferedImage text){
+        type = 1;
+
         ArrayList<BufferedImage> cuts = new ArrayList<>();
 
-        ArrayList<Integer> cutPoint = cut(text, 1);
+        ArrayList<Integer> cutPoint = cut(text);
 
         int startCut = 0;
         for (int i : cutPoint){
@@ -46,18 +56,11 @@ public class Cutter {
         return cuts;
     }
 
-    private ArrayList<Integer> cut(BufferedImage text, int type){
+    private ArrayList<Integer> cut(BufferedImage text){
         int[][] scan = scanner(type, text);
-        int permCut;
-        if (type == 0) permCut = 253;
-        else permCut = 245;
-        return findCut(scan, permCut);
+        return findCut(scan);
     }
 
-    /*
-     * 0 = Horizontally
-     * 1 = Vertically
-     */
     private int[][] scanner(int type, BufferedImage img){
         type = type & 1;
 
@@ -92,39 +95,50 @@ public class Cutter {
         return res;
     }
 
-    private ArrayList<Integer> findCut(int[][] scan, int permCut){
+    private ArrayList<Integer> findCut(int[][] scan){
         ArrayList<Integer> cuts = new ArrayList<>();
 
-        for (int i = 1; i < scan[0].length - 1; i++){
+        int permCut, space_max;
+        if (type == 0) {
+            permCut = 253;
+            space_max = 15;
+        }
+        else {
+            permCut = 245;
+            space_max = 3;
+        }
+
+        /*for (int i = 1; i < scan[0].length - 1; i++){
             if (isCut(scan[3][i-1], scan[3][i], scan[3][i+1], permCut)){
                 cuts.add(i);
+            }
+        }*/
+
+        boolean[] lum = new boolean[scan[0].length];
+        for (int i = 0; i < scan[0].length; i++){
+            lum[i] = scan[3][i] > permCut;
+        }
+
+        int nb_space = 0;
+        for (int i = 1; i < lum.length - 1; i++){
+            if (lum[i]){
+                if (!lum[i-1]) cuts.add(i);
+                else nb_space++;
+            } else {
+                if (lum[i-1] && nb_space > space_max) cuts.add(i-1);
+                nb_space = 0;
             }
         }
 
         return cuts;
     }
-    /*
-     * r = red
-     * g = green
-     * b = blue
-     *
-     * B = Before
-     * P = Present
-     * A = After
-     */
-    /*private boolean isCut(int rB, int gB, int bB, int rP, int gP, int bP, int rA, int gA, int bA){
-        boolean res;
-
-        res = rB < rP && gB < gP && bB < bP;
-        res = res && rP >= rA && gP >= gA && bP >= bA;
-        //res = res && rA == 31110 && gA == 31110 && bA == 31110;
-
-        res = res && rA == 255 && gA == 255 && bA == 255;
-
-        return res;
-    }*/
 
     private boolean isCut(int lB, int lP, int lA, int permCut){
-        return lB < lP && lP >= lA && lP > permCut;
+        boolean res = lP > permCut;
+
+        res = res && ((lB < lP + 50 && lP >= lA) || (lP - 50 < lA));
+
+        return res;
+        //return lB < lP && lP >= lA && lP > permCut;
     }
 }

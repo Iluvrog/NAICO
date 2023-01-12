@@ -16,17 +16,22 @@ public class Comparateur {
     private static Comparateur instance;
 
     private final ArrayList<CelluleMap> celluleMaps;
+    private final ArrayList<CelluleMasque> celluleMasques;
 
     private static final String default_file_name = "precalc.data";
 
     private static final int size_img = 50;
 
+    private static final double poidMasque = .5, poidMap = 1;
+
     /* Liste des types
      * 0 : CelluleMap
+     * 1 : CelluleMasque
      */
 
     private Comparateur(){
         celluleMaps = new ArrayList<>();
+        celluleMasques = new ArrayList<>();
     }
 
     public static Comparateur getInstance(){
@@ -44,10 +49,17 @@ public class Comparateur {
         Verbose verbose = new Verbose();
 
         double comp;
+
         for (CelluleMap c : celluleMaps){
             comp = c.compare(map);
-            verbose.add(c.getName(), comp, "CelluleMap");
+            verbose.add(c.getName(), comp * poidMap, "CelluleMap");
         }
+
+        for (CelluleMasque c : celluleMasques){
+            comp = c.compare(masque);
+            verbose.add(c.getName(), comp * poidMasque, "CelluleMasque");
+        }
+
         return verbose;
     }
 
@@ -56,12 +68,10 @@ public class Comparateur {
     }
 
     public void fillAscii(){
-        CelluleMap celluleMap;
         BufferedImage img;
         Graphics g;
 
-        for (char i = 33; i < 127; i++){
-            celluleMap = new CelluleMap(i);
+        for (char i = 32; i < 127; i++){
 
             img = new BufferedImage(size_img, size_img, BufferedImage.TYPE_INT_ARGB);
             g = img.createGraphics();
@@ -70,10 +80,40 @@ public class Comparateur {
             g.setColor(Color.BLACK);
             g.drawString(String.valueOf(i), 0, size_img/4);
 
-            celluleMap.add(new Map(new Masque(img)));
-
-            celluleMaps.add(celluleMap);
+            //add(img, i, 0);
+            add(img, i, 1);
         }
+    }
+
+    public void add(BufferedImage img, char name, int type){
+        if (type == 0) addMap(img, name);
+        else if (type == 1) addMasque(img, name);
+    }
+
+    private void addMasque(BufferedImage img, char name){
+        Masque m = new Masque(img);
+        for (CelluleMasque c : celluleMasques){
+            if (c.getName() == name) {
+                c.add(m);
+                return;
+            }
+        }
+        CelluleMasque c = new CelluleMasque(name);
+        c.add(m);
+        celluleMasques.add(c);
+    }
+
+    private void addMap(BufferedImage img, char name){
+        Map m = new Map(new Masque(img));
+        for (CelluleMap c : celluleMaps){
+            if (c.getName() == name) {
+                c.add(m);
+                return;
+            }
+        }
+        CelluleMap c = new CelluleMap(name);
+        c.add(m);
+        celluleMaps.add(c);
     }
 
     public void save(){
@@ -85,13 +125,23 @@ public class Comparateur {
 
         String celluleSave;
         int size;
-        for (CelluleMap c : celluleMaps){
+        /*for (CelluleMap c : celluleMaps){
             celluleSave = c.saveForm();
             size = celluleSave.length();
             for (int i = 0; i < 4; i++){
                 saveForm.append((char) (size >> ((3 - i) * 8) & 0xff));
             }
             saveForm.append((char)0);
+            saveForm.append(celluleSave);
+        }*/
+
+        for (CelluleMasque c : celluleMasques){
+            celluleSave = c.saveForm();
+            size = celluleSave.length();
+            for (int i = 0; i < 4; i++){
+                saveForm.append((char) (size >> ((3 - i) * 8) & 0xff));
+            }
+            saveForm.append((char)1);
             saveForm.append(celluleSave);
         }
 
@@ -155,6 +205,8 @@ public class Comparateur {
 
                 if (type == 0) {
                     celluleMaps.add(new CelluleMap(saveForm.substring(0, size)));
+                } else if (type == 1){
+                    celluleMasques.add(new CelluleMasque(saveForm.substring(0, size)));
                 } else {
                     loadError();
                     return;
@@ -169,5 +221,19 @@ public class Comparateur {
 
     private void loadError(){
         celluleMaps.clear();
+    }
+
+    public Map getMap(char i){
+        for (CelluleMap c : celluleMaps){
+            if (i == c.getName()) return c.getMaps().get(0);
+        }
+        return null;
+    }
+
+    public Masque getMasque(char i){
+        for (CelluleMasque c : celluleMasques){
+            if (i == c.getName()) return c.getMasques().get(0);
+        }
+        return null;
     }
 }

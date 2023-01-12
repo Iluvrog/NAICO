@@ -1,5 +1,6 @@
 package Main.ui;
 
+import Find.Comparateur.Comparateur;
 import Find.Map;
 import Find.Masque;
 
@@ -13,7 +14,7 @@ public class Main extends JFrame {
     Main(){
         super();
 
-        test2();
+        test3();
 
         //Les détails de création de ma fenêtre
         setLocation(1000, 250);
@@ -52,6 +53,22 @@ public class Main extends JFrame {
         add(new Image(map.toBufferedImage()));
         Map map2 = new Map(map.toLine());
         add(new Image(map2.toBufferedImage()));
+    }
+
+    private void test3(){
+        setLayout(new GridLayout(1, 3));
+
+        Masque masque = new Masque("./data/picture/char_extract_1_0.png");
+
+        Map map = new Map(masque);
+
+        add(new Image(map.toBufferedImage()));
+
+        Comparateur.getInstance().fill();
+
+        add(new Image(Comparateur.getInstance().getMap('m').toBufferedImage()));
+
+        add(new Image(Comparateur.getInstance().getMap('-').toBufferedImage()));
     }
 
     public static void main(String[] args){
