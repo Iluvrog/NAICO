@@ -68,14 +68,10 @@ public class Comparateur {
     }
 
     public void fillAscii(){
-        //CelluleMap celluleMap;
-        CelluleMasque celluleMasque;
         BufferedImage img;
         Graphics g;
 
         for (char i = 32; i < 127; i++){
-            //celluleMap = new CelluleMap(i);
-            celluleMasque = new CelluleMasque(i);
 
             img = new BufferedImage(size_img, size_img, BufferedImage.TYPE_INT_ARGB);
             g = img.createGraphics();
@@ -84,12 +80,40 @@ public class Comparateur {
             g.setColor(Color.BLACK);
             g.drawString(String.valueOf(i), 0, size_img/4);
 
-            celluleMasque.add(new Masque(img));
-            //celluleMap.add(new Map(new Masque(img)));
-
-            celluleMasques.add(celluleMasque);
-            //celluleMaps.add(celluleMap);
+            //add(img, i, 0);
+            add(img, i, 1);
         }
+    }
+
+    public void add(BufferedImage img, char name, int type){
+        if (type == 0) addMap(img, name);
+        else if (type == 1) addMasque(img, name);
+    }
+
+    private void addMasque(BufferedImage img, char name){
+        Masque m = new Masque(img);
+        for (CelluleMasque c : celluleMasques){
+            if (c.getName() == name) {
+                c.add(m);
+                return;
+            }
+        }
+        CelluleMasque c = new CelluleMasque(name);
+        c.add(m);
+        celluleMasques.add(c);
+    }
+
+    private void addMap(BufferedImage img, char name){
+        Map m = new Map(new Masque(img));
+        for (CelluleMap c : celluleMaps){
+            if (c.getName() == name) {
+                c.add(m);
+                return;
+            }
+        }
+        CelluleMap c = new CelluleMap(name);
+        c.add(m);
+        celluleMaps.add(c);
     }
 
     public void save(){
