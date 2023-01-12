@@ -63,6 +63,7 @@ public class Masque {
                     mj = 0;
                     mi++;
                 }
+                if (mi == hauteur) return m;
             }
         }
 
