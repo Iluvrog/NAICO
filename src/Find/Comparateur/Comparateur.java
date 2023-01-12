@@ -192,4 +192,11 @@ public class Comparateur {
         }
         return null;
     }
+
+    public Masque getMasque(char i){
+        for (CelluleMasque c : celluleMasques){
+            if (i == c.getName()) return c.getMasques().get(0);
+        }
+        return null;
+    }
 }
