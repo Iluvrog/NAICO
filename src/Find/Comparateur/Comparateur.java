@@ -65,13 +65,22 @@ public class Comparateur {
 
     public void fill(){
         fillAscii();
+        fillLatin1();
     }
 
     public void fillAscii(){
+        fillBorn((char) 32, (char) 127);
+    }
+
+    public void fillLatin1(){
+        fillBorn((char) 0xa1, (char) 0xff);
+    }
+
+    private void fillBorn(char start, char end){
         BufferedImage img;
         Graphics g;
 
-        for (char i = 32; i < 127; i++){
+        for (char i = start; i < end; i++){
 
             img = new BufferedImage(size_img, size_img, BufferedImage.TYPE_INT_ARGB);
             g = img.createGraphics();

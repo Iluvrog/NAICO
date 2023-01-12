@@ -32,7 +32,7 @@ public class Tester {
 
             Extractor extractor = Extractor.getInstance();
 
-            BufferedImage text = ImageIO.read(new File("./data/picture/test_text.png"));
+            BufferedImage text = ImageIO.read(new File("./data/picture/test_latin1.png"));
             int i,j;
             i=0;
             for (BufferedImage line : cutter.cutHorizontally(text)){

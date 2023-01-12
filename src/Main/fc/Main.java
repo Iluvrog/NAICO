@@ -13,7 +13,7 @@ import java.io.File;
 
 public class Main {
 
-    private static void test1(){
+    private static void test1(String path){
         try {
             Comparateur comparateur = Comparateur.getInstance();
             comparateur.fill();
@@ -22,7 +22,7 @@ public class Main {
 
             Extractor extractor = Extractor.getInstance();
 
-            BufferedImage text = ImageIO.read(new File("./data/picture/test_text.png"));
+            BufferedImage text = ImageIO.read(new File(path));
             for (BufferedImage line : cutter.cutHorizontally(text)){
                 for (BufferedImage character : cutter.cutVertically(line)){
                     System.out.print(comparateur.compare(new Masque(extractor.extract(character))));
@@ -55,7 +55,7 @@ public class Main {
     }
 
     public static void main(String[] args){
-        //test2(1, 0);
-        test1();
+        test2(1, 1);
+        //test1("./data/picture/test_latin1.png");
     }
 }
