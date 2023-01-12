@@ -14,14 +14,14 @@ public class CelluleMasque {
         masques = new ArrayList<>();
     }
 
-    /*CelluleMap(String saveF){
-        maps = new ArrayList<>();
+    CelluleMasque(String saveF){
+        masques = new ArrayList<>();
         name = saveF.charAt(0);
 
         saveF = saveF.substring(1);
 
         int size;
-        String mapString;
+        String masqueString;
 
         while (saveF.length() != 0){
             size = 0;
@@ -30,11 +30,11 @@ public class CelluleMasque {
                 size += saveF.charAt(0);
                 saveF = saveF.substring(1);
             }
-            mapString = saveF.substring(0, size);
-            add(new Map(mapString));
+            masqueString = saveF.substring(0, size);
+            add(Masque.loadMasque(masqueString));
             saveF = saveF.substring(size);
         }
-    }*/
+    }
 
     public char getName() {
         return name;
@@ -58,22 +58,22 @@ public class CelluleMasque {
         return res;
     }
 
-    /*public String saveForm(){
+    public String saveForm(){
         StringBuilder res = new StringBuilder();
 
         res.append(name);
 
-        String mapString;
+        String masqueString;
         int size;
-        for (Map m : maps){
-            mapString = m.toLine();
-            size = mapString.length();
+        for (Masque m : masques){
+            masqueString = m.toLine();
+            size = masqueString.length();
             for (int i = 0; i < 4; i++){
                 res.append((char) (size >> ((3 - i) * 8) & 0xff));
             }
-            res.append(mapString);
+            res.append(masqueString);
         }
 
         return res.toString();
-    }*/
+    }
 }

@@ -26,6 +26,7 @@ public class Comparateur {
 
     /* Liste des types
      * 0 : CelluleMap
+     * 1 : CelluleMasque
      */
 
     private Comparateur(){
@@ -110,6 +111,16 @@ public class Comparateur {
             saveForm.append(celluleSave);
         }
 
+        for (CelluleMasque c : celluleMasques){
+            celluleSave = c.saveForm();
+            size = celluleSave.length();
+            for (int i = 0; i < 4; i++){
+                saveForm.append((char) (size >> ((3 - i) * 8) & 0xff));
+            }
+            saveForm.append((char)1);
+            saveForm.append(celluleSave);
+        }
+
         try {
             FileWriter file = new FileWriter(name);
             file.write(saveForm.toString());
@@ -170,6 +181,8 @@ public class Comparateur {
 
                 if (type == 0) {
                     celluleMaps.add(new CelluleMap(saveForm.substring(0, size)));
+                } else if (type == 1){
+                    celluleMasques.add(new CelluleMasque(saveForm.substring(0, size)));
                 } else {
                     loadError();
                     return;

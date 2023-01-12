@@ -29,6 +29,46 @@ public class Masque {
         }
     }
 
+    private Masque(){}
+
+    public static Masque loadMasque(String line){
+        Masque m = new Masque();
+
+        int hauteur = 0;
+        int largeur = 0;
+
+        for (int i = 0; i < 4; i++){
+            hauteur = hauteur << 8;
+            hauteur += line.charAt(0);
+            line = line.substring(1);
+        }
+
+        for (int i = 0; i < 4; i++){
+            largeur = largeur << 8;
+            largeur += line.charAt(0);
+            line = line.substring(1);
+        }
+
+        m.masque = new int[hauteur][largeur];
+
+        byte[] mots = line.getBytes();
+        byte mot;
+        int mi = 0, mj = 0;
+        for (int i = 0; i < mots.length; i++){
+            mot = mots[i];
+            for (int j = 0; j < 8; j++){
+                m.masque[mi][mj] = mot & (1 << 7-j);
+                mj++;
+                if (mj == largeur){
+                    mj = 0;
+                    mi++;
+                }
+            }
+        }
+
+        return m;
+    }
+
     private void traiteImage(BufferedImage image){
         int minW = Integer.MAX_VALUE, minH = Integer.MAX_VALUE;
         int maxW = 0, maxH = 0;
@@ -152,5 +192,36 @@ public class Masque {
             }
         }
         return image;
+    }
+
+    public String toLine(){
+        StringBuilder res = new StringBuilder();
+
+        int hauteur = getHauteur();
+        int largeur = getLargeur();
+
+        for (int i = 0; i < 4; i++){
+            res.append((char) (hauteur >> ((3 - i) * 8) & 0xff));
+        }
+        for (int i = 0; i < 4; i++){
+            res.append((char) (largeur >> ((3 - i) * 8) & 0xff));
+        }
+
+        byte mot = 0;
+        int compteur = 0;
+        for (int i = 0; i < hauteur; i++){
+            for (int j = 0; j < largeur; j++){
+                if (compteur == 0) mot = 0;
+                mot += (getValue(i, j) << 7-compteur);
+                if (compteur == 7) res.append(mot);
+                compteur = (compteur + 1)%8;
+            }
+        }
+
+        if (compteur != 0){
+            res.append(mot);
+        }
+
+        return res.toString();
     }
 }
