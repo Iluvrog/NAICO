@@ -30,7 +30,7 @@ public class Masque {
     }
 
     private void traiteImage(BufferedImage image){
-        int minW = 9999999, minH = 9999999;
+        int minW = Integer.MAX_VALUE, minH = Integer.MAX_VALUE;
         int maxW = 0, maxH = 0;
 
         int hauteur = image.getHeight();
