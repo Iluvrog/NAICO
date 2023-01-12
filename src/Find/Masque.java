@@ -76,6 +76,8 @@ public class Masque {
         int hauteur = image.getHeight();
         int largeur = image.getWidth();
 
+        masque = new int[tailleResize][tailleResize];
+
         Color color;
         boolean isVoid = true;
 
@@ -115,8 +117,6 @@ public class Masque {
         g.fillRect(0, 0, tailleResize, tailleResize);
         g.drawImage(sub, (tailleResize - width)/2, (tailleResize - height)/2, width, height, null);
         //g.drawImage(sub, tailleResize/20, tailleResize/20, occupation, occupation, null);
-
-        masque = new int[tailleResize][tailleResize];
 
         for (int i = 0; i < tailleResize; i++){
             for (int j = 0; j < tailleResize; j++){

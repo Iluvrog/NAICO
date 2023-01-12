@@ -68,13 +68,13 @@ public class Comparateur {
     }
 
     public void fillAscii(){
-        CelluleMap celluleMap;
+        //CelluleMap celluleMap;
         CelluleMasque celluleMasque;
         BufferedImage img;
         Graphics g;
 
-        for (char i = 33; i < 127; i++){
-            celluleMap = new CelluleMap(i);
+        for (char i = 32; i < 127; i++){
+            //celluleMap = new CelluleMap(i);
             celluleMasque = new CelluleMasque(i);
 
             img = new BufferedImage(size_img, size_img, BufferedImage.TYPE_INT_ARGB);
@@ -85,10 +85,10 @@ public class Comparateur {
             g.drawString(String.valueOf(i), 0, size_img/4);
 
             celluleMasque.add(new Masque(img));
-            celluleMap.add(new Map(new Masque(img)));
+            //celluleMap.add(new Map(new Masque(img)));
 
             celluleMasques.add(celluleMasque);
-            celluleMaps.add(celluleMap);
+            //celluleMaps.add(celluleMap);
         }
     }
 
@@ -101,7 +101,7 @@ public class Comparateur {
 
         String celluleSave;
         int size;
-        for (CelluleMap c : celluleMaps){
+        /*for (CelluleMap c : celluleMaps){
             celluleSave = c.saveForm();
             size = celluleSave.length();
             for (int i = 0; i < 4; i++){
@@ -109,7 +109,7 @@ public class Comparateur {
             }
             saveForm.append((char)0);
             saveForm.append(celluleSave);
-        }
+        }*/
 
         for (CelluleMasque c : celluleMasques){
             celluleSave = c.saveForm();
