@@ -73,8 +73,8 @@ public class Masque {
         Graphics g = resize.createGraphics();
         g.setColor(Color.WHITE);
         g.fillRect(0, 0, tailleResize, tailleResize);
-        //g.drawImage(sub, (tailleResize - width)/2, (tailleResize - height)/2, width, height, null);
-        g.drawImage(sub, tailleResize/20, tailleResize/20, occupation, occupation, null);
+        g.drawImage(sub, (tailleResize - width)/2, (tailleResize - height)/2, width, height, null);
+        //g.drawImage(sub, tailleResize/20, tailleResize/20, occupation, occupation, null);
 
         masque = new int[tailleResize][tailleResize];
 
