@@ -70,32 +70,32 @@ public class Comparateur {
     }
 
     public void fillSpace(){
-        fillBorn((char) 32, (char) 33);
+        fillBorn(32, 33);
     }
 
     public void fillAscii(){
-        fillBorn((char) 33, (char) 127);
+        fillBorn(33, 127);
     }
 
     public void fillLatin1(){
-        fillBorn((char) 0xa1, (char) 0xff);
+        fillBorn(0xa1, 0xff);
     }
 
-    private void fillBorn(char start, char end){
+    private void fillBorn(int start, int end){
         BufferedImage img;
         Graphics g;
 
-        for (char i = start; i < end; i++){
+        for (int i = start; i < end; i++){
 
             img = new BufferedImage(size_img, size_img, BufferedImage.TYPE_INT_ARGB);
             g = img.createGraphics();
             g.setColor(Color.WHITE);
             g.fillRect(0, 0, size_img, size_img);
             g.setColor(Color.BLACK);
-            g.drawString(String.valueOf(i), 0, size_img/4);
+            g.drawString(String.valueOf((char)i), 0, size_img/4);
 
             //add(img, i, 0);
-            add(img, i, 1);
+            add(img, (char)i, 1);
         }
     }
 
