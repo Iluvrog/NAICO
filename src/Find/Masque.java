@@ -106,6 +106,22 @@ public class Masque {
         return tailleResize;
     }
 
+    public double compare(Masque m){
+        double comp = 0;
+
+        int hauteur = getHauteur(), largeur = getLargeur();
+
+        //if (hauteur != mapComp.length || largeur != mapComp[0].length) return -1;
+
+        for (int i = 0; i < hauteur; i++){
+            for (int j = 0; j < largeur; j++){
+                comp+= Math.abs(getValue(i, j) - m.getValue(i, j));
+            }
+        }
+
+        return 1/(comp/hauteur/largeur);
+    }
+
     @Override
     public String toString() {
         StringBuilder string = new StringBuilder();

@@ -16,10 +16,13 @@ public class Comparateur {
     private static Comparateur instance;
 
     private final ArrayList<CelluleMap> celluleMaps;
+    private final ArrayList<CelluleMasque> celluleMasques;
 
     private static final String default_file_name = "precalc.data";
 
     private static final int size_img = 50;
+
+    private static final double poidMasque = .5, poidMap = 1;
 
     /* Liste des types
      * 0 : CelluleMap
@@ -27,6 +30,7 @@ public class Comparateur {
 
     private Comparateur(){
         celluleMaps = new ArrayList<>();
+        celluleMasques = new ArrayList<>();
     }
 
     public static Comparateur getInstance(){
@@ -44,10 +48,17 @@ public class Comparateur {
         Verbose verbose = new Verbose();
 
         double comp;
+
         for (CelluleMap c : celluleMaps){
             comp = c.compare(map);
-            verbose.add(c.getName(), comp, "CelluleMap");
+            verbose.add(c.getName(), comp * poidMap, "CelluleMap");
         }
+
+        for (CelluleMasque c : celluleMasques){
+            comp = c.compare(masque);
+            verbose.add(c.getName(), comp * poidMasque, "CelluleMasque");
+        }
+
         return verbose;
     }
 
@@ -57,11 +68,13 @@ public class Comparateur {
 
     public void fillAscii(){
         CelluleMap celluleMap;
+        CelluleMasque celluleMasque;
         BufferedImage img;
         Graphics g;
 
         for (char i = 33; i < 127; i++){
             celluleMap = new CelluleMap(i);
+            celluleMasque = new CelluleMasque(i);
 
             img = new BufferedImage(size_img, size_img, BufferedImage.TYPE_INT_ARGB);
             g = img.createGraphics();
@@ -70,8 +83,10 @@ public class Comparateur {
             g.setColor(Color.BLACK);
             g.drawString(String.valueOf(i), 0, size_img/4);
 
+            celluleMasque.add(new Masque(img));
             celluleMap.add(new Map(new Masque(img)));
 
+            celluleMasques.add(celluleMasque);
             celluleMaps.add(celluleMap);
         }
     }
