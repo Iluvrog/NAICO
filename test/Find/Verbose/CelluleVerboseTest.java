@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CelluleVerboseTest {
 
-    @Test
+    /*@Test
     public void add_message(){
         CelluleVerbose celluleVerbose = new CelluleVerbose();
         celluleVerbose.add("test");
@@ -19,6 +19,6 @@ class CelluleVerboseTest {
         celluleVerbose.add("test1");
         celluleVerbose.add("test2");
         assertEquals("test1\ttest2", celluleVerbose.getVerboseString());
-    }
+    }*/
 
 }

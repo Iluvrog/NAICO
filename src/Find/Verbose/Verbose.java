@@ -23,16 +23,15 @@ public class Verbose {
 
         boolean haveCel = false;
         for (CelluleVerbose cv : celluleVerboses){
-            if (cv.getVerboseString().startsWith(type)){
-                cv.add(candidat + " : " + newscore);
+            if (cv.getType().startsWith(type)){
+                cv.add(newscore, candidat);
                 haveCel = true;
             }
         }
 
         if (!haveCel){
-            CelluleVerbose newCellule = new CelluleVerbose();
-            newCellule.add(type + " :");
-            newCellule.add(candidat + " : " + newscore);
+            CelluleVerbose newCellule = new CelluleVerbose(type + " : ");
+            newCellule.add(newscore, candidat);
             celluleVerboses.add(newCellule);
         }
     }
