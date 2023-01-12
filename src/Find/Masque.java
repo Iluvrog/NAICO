@@ -37,6 +37,7 @@ public class Masque {
         int largeur = image.getWidth();
 
         Color color;
+        boolean isVoid = true;
 
         for (int i = 0; i < largeur; i++){
             for (int j = 0; j < hauteur; j++){
@@ -46,9 +47,12 @@ public class Masque {
                     if (j > maxH) maxH = j;
                     if (i < minW) minW = i;
                     if (i > maxW) maxW = i;
+                    isVoid = false;
                 }
             }
         }
+
+        if (isVoid) return;
 
         //System.out.println(minW + " " + minH + " " + maxW + " " +maxH);
         BufferedImage sub = image.getSubimage(minW, minH, maxW-minW+1, maxH-minH+1);
