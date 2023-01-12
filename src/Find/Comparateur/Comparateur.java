@@ -64,12 +64,17 @@ public class Comparateur {
     }
 
     public void fill(){
+        fillSpace();
         fillAscii();
         fillLatin1();
     }
 
+    public void fillSpace(){
+        fillBorn((char) 32, (char) 33);
+    }
+
     public void fillAscii(){
-        fillBorn((char) 32, (char) 127);
+        fillBorn((char) 33, (char) 127);
     }
 
     public void fillLatin1(){
