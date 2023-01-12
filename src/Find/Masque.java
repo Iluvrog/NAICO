@@ -55,13 +55,26 @@ public class Masque {
         if (isVoid) return;
 
         //System.out.println(minW + " " + minH + " " + maxW + " " +maxH);
-        BufferedImage sub = image.getSubimage(minW, minH, maxW-minW+1, maxH-minH+1);
+        int width = maxW-minW+1;
+        int height = maxH-minH+1;
+        BufferedImage sub = image.getSubimage(minW, minH, width, height);
+
+        int occupation = 9*tailleResize/10;
+
+        if (width > height){
+            height = height * occupation / width;
+            width = occupation;
+        } else {
+            width = width * occupation / height;
+            height = occupation;
+        }
 
         BufferedImage resize = new BufferedImage(tailleResize, tailleResize, BufferedImage.TYPE_INT_ARGB);
         Graphics g = resize.createGraphics();
         g.setColor(Color.WHITE);
         g.fillRect(0, 0, tailleResize, tailleResize);
-        g.drawImage(sub, tailleResize/20, tailleResize/20, 9*tailleResize/10, 9*tailleResize/10, null);
+        //g.drawImage(sub, (tailleResize - width)/2, (tailleResize - height)/2, width, height, null);
+        g.drawImage(sub, tailleResize/20, tailleResize/20, occupation, occupation, null);
 
         masque = new int[tailleResize][tailleResize];
 

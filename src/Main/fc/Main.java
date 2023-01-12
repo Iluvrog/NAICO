@@ -55,7 +55,7 @@ public class Main {
     }
 
     public static void main(String[] args){
-        //test2(1, 0);
-        test1();
+        test2(1, 0);
+        //test1();
     }
 }

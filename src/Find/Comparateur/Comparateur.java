@@ -170,4 +170,11 @@ public class Comparateur {
     private void loadError(){
         celluleMaps.clear();
     }
+
+    public Map getMap(char i){
+        for (CelluleMap c : celluleMaps){
+            if (i == c.getName()) return c.getMaps().get(0);
+        }
+        return null;
+    }
 }
