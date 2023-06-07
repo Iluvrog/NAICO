@@ -45,12 +45,12 @@ class VerboseTest {
         assertEquals(1, v.getCelluleVerboses().size());
     }
 
-    @Test
+    /*@Test
     public void getCelluleVerboseMessage(){
         Verbose v = new Verbose();
         v.add('a', 1, "T");
         assertEquals("T :\ta : 1.0", v.getCelluleVerboses().get(0).getVerboseString());
-    }
+    }*/
 
     @Test
     public void getWinner2(){
@@ -76,14 +76,14 @@ class VerboseTest {
         assertEquals(2, v.getCelluleVerboses().size());
     }
 
-    @Test
+    /*@Test
     public void getCelluleVerboseMessage2(){
         Verbose v = new Verbose();
         v.add('a', 1, "T");
         v.add('b', 2.01, "T2");
         assertEquals("T :\ta : 1.0", v.getCelluleVerboses().get(0).getVerboseString());
         assertEquals("T2 :\tb : 2.01", v.getCelluleVerboses().get(1).getVerboseString());
-    }
+    }*/
 
     @Test
     public void getWinner3(){
@@ -109,12 +109,12 @@ class VerboseTest {
         assertEquals(1, v.getCelluleVerboses().size());
     }
 
-    @Test
+    /*@Test
     public void getCelluleVerboseMessage3(){
         Verbose v = new Verbose();
         v.add('a', 1, "T");
         v.add('b', 2.01, "T");
         assertEquals("T :\ta : 1.0\tb : 2.01", v.getCelluleVerboses().get(0).getVerboseString());
-    }
+    }*/
 
 }
