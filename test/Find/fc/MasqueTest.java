@@ -1,6 +1,6 @@
 package Find.fc;
 
-import Find.Masque;
+import Find.Modeles.Comparatifs.Masque;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Timeout;

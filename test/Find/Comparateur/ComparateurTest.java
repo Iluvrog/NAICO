@@ -1,6 +1,6 @@
 package Find.Comparateur;
 
-import Find.Masque;
+import Find.Modeles.Comparatifs.Masque;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
 

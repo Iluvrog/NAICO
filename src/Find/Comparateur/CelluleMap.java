@@ -1,6 +1,6 @@
 package Find.Comparateur;
 
-import Find.Map;
+import Find.Modeles.Comparatifs.Map;
 
 import java.util.ArrayList;
 

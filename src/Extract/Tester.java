@@ -1,7 +1,6 @@
 package Extract;
 
 import Cut.Cutter;
-import Find.Masque;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;

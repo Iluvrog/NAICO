@@ -1,8 +1,8 @@
 package Main.ui;
 
 import Find.Comparateur.Comparateur;
-import Find.Map;
-import Find.Masque;
+import Find.Modeles.Comparatifs.Map;
+import Find.Modeles.Comparatifs.Masque;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

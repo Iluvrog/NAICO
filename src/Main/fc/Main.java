@@ -3,7 +3,7 @@ package Main.fc;
 import Cut.Cutter;
 import Extract.Extractor;
 import Find.Comparateur.Comparateur;
-import Find.Masque;
+import Find.Modeles.Comparatifs.Masque;
 import Find.Verbose.CelluleVerbose;
 import Find.Verbose.Verbose;
 

@@ -1,4 +1,4 @@
-package Find;
+package Find.Modeles.Comparatifs;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

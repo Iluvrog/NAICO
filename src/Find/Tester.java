@@ -1,6 +1,8 @@
 package Find;
 
 import Find.Comparateur.Comparateur;
+import Find.Modeles.Comparatifs.Map;
+import Find.Modeles.Comparatifs.Masque;
 import Find.Verbose.CelluleVerbose;
 import Find.Verbose.Verbose;
 

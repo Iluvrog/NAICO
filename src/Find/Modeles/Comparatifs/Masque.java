@@ -1,4 +1,4 @@
-package Find;
+package Find.Modeles.Comparatifs;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
