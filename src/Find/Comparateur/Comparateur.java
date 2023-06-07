@@ -64,24 +64,38 @@ public class Comparateur {
     }
 
     public void fill(){
+        fillSpace();
         fillAscii();
+        fillLatin1();
+    }
+
+    public void fillSpace(){
+        fillBorn(32, 33);
     }
 
     public void fillAscii(){
+        fillBorn(33, 127);
+    }
+
+    public void fillLatin1(){
+        fillBorn(0xa1, 0xff);
+    }
+
+    private void fillBorn(int start, int end){
         BufferedImage img;
         Graphics g;
 
-        for (char i = 32; i < 127; i++){
+        for (int i = start; i < end; i++){
 
             img = new BufferedImage(size_img, size_img, BufferedImage.TYPE_INT_ARGB);
             g = img.createGraphics();
             g.setColor(Color.WHITE);
             g.fillRect(0, 0, size_img, size_img);
             g.setColor(Color.BLACK);
-            g.drawString(String.valueOf(i), 0, size_img/4);
+            g.drawString(String.valueOf((char)i), 0, size_img/4);
 
             //add(img, i, 0);
-            add(img, i, 1);
+            add(img, (char)i, 1);
         }
     }
 

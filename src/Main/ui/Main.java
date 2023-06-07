@@ -56,19 +56,15 @@ public class Main extends JFrame {
     }
 
     private void test3(){
-        setLayout(new GridLayout(1, 3));
+        setLayout(new GridLayout(1, 2));
 
-        Masque masque = new Masque("./data/picture/char_extract_1_0.png");
+        Masque masque = new Masque("./data/picture/char_extract_1_1.png");
 
-        Map map = new Map(masque);
-
-        add(new Image(map.toBufferedImage()));
+        add(new Image(masque.toBufferedImage()));
 
         Comparateur.getInstance().fill();
 
-        add(new Image(Comparateur.getInstance().getMap('m').toBufferedImage()));
-
-        add(new Image(Comparateur.getInstance().getMap('-').toBufferedImage()));
+        add(new Image(Comparateur.getInstance().getMasque('J').toBufferedImage()));
     }
 
     public static void main(String[] args){

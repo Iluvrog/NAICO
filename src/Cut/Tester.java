@@ -9,7 +9,7 @@ public class Tester {
     private void test1(){
         BufferedImage img;
         try {
-            img = ImageIO.read(new File("./data/picture/test_text.png"));
+            img = ImageIO.read(new File("./data/picture/test_latin1.png"));
         } catch (Exception e){
             e.printStackTrace();
             return;
